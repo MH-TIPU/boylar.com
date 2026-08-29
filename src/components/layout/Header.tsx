@@ -50,7 +50,7 @@ export function Header({
       className={cn(
         'fixed inset-x-0 top-0 z-50 transition-all duration-500 ease-out-expo',
         scrolled
-          ? 'border-b border-line bg-base/80 backdrop-blur-xl'
+          ? 'border-b border-line bg-canvas/80 backdrop-blur-xl'
           : 'border-b border-transparent',
       )}
     >
@@ -99,7 +99,7 @@ export function Header({
       <div
         id="mobile-nav"
         hidden={!open}
-        className="border-t border-line bg-base/95 backdrop-blur-xl lg:hidden"
+        className="border-t border-line bg-canvas/95 backdrop-blur-xl lg:hidden"
       >
         <Container size="wide">
           <nav aria-label="Mobile" className="flex flex-col gap-1 py-6">

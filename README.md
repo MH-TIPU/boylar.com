@@ -163,6 +163,14 @@ All tokens live in `src/styles/globals.css` under `@theme`. Tailwind v4 generate
 utilities from them automatically — `--color-accent` becomes `text-accent`,
 `--text-display-lg` becomes `text-display-lg`.
 
+> **Do not name a colour token after a core Tailwind size.** A token called
+> `--color-base` generates a `text-base` *colour* utility that silently shadows
+> the built-in `text-base` *font size* — text renders in that colour instead,
+> with no error anywhere. This bit us once: the page-background token was named
+> `base`, which turned every `text-base` heading the same colour as the
+> background. It is now `--color-canvas`. The same trap applies to `sm`, `lg`,
+> `xl`, and the other size names.
+
 The site commits to a single dark look; there is no light palette to maintain.
 
 Motion respects `prefers-reduced-motion` throughout.

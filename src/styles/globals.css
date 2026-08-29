@@ -9,8 +9,11 @@
    ─────────────────────────────────────────────────────────────────────────── */
 
 @theme {
-  /* Surfaces, darkest to lightest */
-  --color-base: #08090b;
+  /* Surfaces, darkest to lightest.
+     Note: do NOT name a colour token `base` — Tailwind would generate a
+     `text-base` colour utility that silently shadows the built-in
+     `text-base` font size. Same applies to any core size name (sm, lg, xl…). */
+  --color-canvas: #08090b;
   --color-surface: #0e1014;
   --color-elevated: #14171d;
   --color-overlay: #1b1f27;
@@ -90,7 +93,7 @@
   }
 
   body {
-    background-color: var(--color-base);
+    background-color: var(--color-canvas);
     color: var(--color-fg);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
@@ -127,12 +130,12 @@
     height: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: var(--color-base);
+    background: var(--color-canvas);
   }
   ::-webkit-scrollbar-thumb {
     background: var(--color-overlay);
     border-radius: 999px;
-    border: 2px solid var(--color-base);
+    border: 2px solid var(--color-canvas);
   }
   ::-webkit-scrollbar-thumb:hover {
     background: #2a2f3a;

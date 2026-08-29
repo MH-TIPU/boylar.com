@@ -38,7 +38,7 @@ export function Process() {
 
         <ol className="mt-14 grid gap-px overflow-hidden rounded-panel border border-line bg-line md:grid-cols-2 lg:grid-cols-4">
           {STEPS.map((step, i) => (
-            <Reveal as="li" key={step.title} delay={i * 80} className="bg-base">
+            <Reveal as="li" key={step.title} delay={i * 80} className="bg-canvas">
               <div className="flex h-full flex-col gap-3 p-7">
                 <span className="font-mono text-xs tracking-widest text-accent">
                   {String(i + 1).padStart(2, '0')}
