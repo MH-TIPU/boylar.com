@@ -171,6 +171,15 @@
       radial-gradient(40% 40% at 85% 20%, rgba(83, 74, 183, 0.14), transparent 70%);
   }
 
+  /* Deeper, off-centre wash for the hero. Three overlapping pools read as
+     light in a room rather than a flat gradient. */
+  .bg-aurora {
+    background:
+      radial-gradient(50% 55% at 72% 8%, rgba(127, 119, 221, 0.26), transparent 68%),
+      radial-gradient(46% 48% at 18% 26%, rgba(83, 74, 183, 0.2), transparent 70%),
+      radial-gradient(70% 60% at 50% -10%, rgba(109, 102, 206, 0.16), transparent 72%);
+  }
+
   /* 1px gradient border, drawn with two backgrounds so it survives radius */
   .border-gradient {
     position: relative;
@@ -194,6 +203,26 @@
     opacity: 1;
     transform: none;
   }
+}
+
+/* Travels down the spine of the hero stack, suggesting one connected system. */
+@keyframes spine-pulse {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  15%,
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(900%);
+    opacity: 0;
+  }
+}
+
+.animate-spine {
+  animation: spine-pulse 4.5s var(--ease-out-expo) infinite;
 }
 
 @keyframes marquee {
