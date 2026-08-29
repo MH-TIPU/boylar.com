@@ -54,7 +54,7 @@ export default async function InsightsPage() {
                     <Card interactive className="h-full">
                       <Link href={`/insights/${post.slug}`} className="flex h-full flex-col">
                         {cover ? (
-                          <div className="relative aspect-16/10 overflow-hidden bg-elevated">
+                          <div className="relative aspect-16/9 overflow-hidden bg-elevated">
                             <Image
                               src={cover}
                               alt={mediaAlt(post.coverImage, post.title)}

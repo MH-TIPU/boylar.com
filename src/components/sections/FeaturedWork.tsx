@@ -48,7 +48,7 @@ export function FeaturedWork({
                   href={`/work/${project.slug}`}
                   className="group block overflow-hidden rounded-panel border border-line bg-surface transition-all duration-500 ease-out-expo hover:-translate-y-1 hover:border-line-strong"
                 >
-                  <div className="relative aspect-16/10 overflow-hidden bg-elevated">
+                  <div className="relative aspect-16/9 overflow-hidden bg-elevated sm:aspect-3/1">
                     {cover ? (
                       <Image
                         src={cover}

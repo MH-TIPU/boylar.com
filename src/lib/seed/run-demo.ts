@@ -40,10 +40,11 @@ async function placeholderImage(from: string, to: string) {
     .toBuffer()
 }
 
+/** Brand purple only — the placeholders should not introduce off-palette colour. */
 const GRADIENTS: Array<[string, string]> = [
-  ['#0b1b2b', '#00d4ff'],
-  ['#12102b', '#7b61ff'],
-  ['#0b2320', '#34d399'],
+  ['#0d0b1c', '#534ab7'],
+  ['#12102b', '#7f77dd'],
+  ['#0a0916', '#3c3489'],
 ]
 
 async function main() {

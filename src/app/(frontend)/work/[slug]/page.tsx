@@ -94,7 +94,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
       {cover ? (
         <Container size="wide" className="relative -mt-10">
-          <div className="relative aspect-16/9 overflow-hidden rounded-panel border border-line bg-elevated">
+          <div className="relative aspect-16/9 overflow-hidden rounded-panel border border-line bg-elevated sm:aspect-3/1">
             <Image
               src={cover}
               alt={mediaAlt(project.coverImage, project.title)}
