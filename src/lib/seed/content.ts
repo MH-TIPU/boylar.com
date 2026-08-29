@@ -469,14 +469,14 @@ export const SERVICES = [
 ]
 
 export const SITE_SETTINGS = {
-  siteName: 'Boylar',
+  siteName: 'boylar',
   tagline: 'Your full-service IT partner',
   description:
-    'Boylar is a full-service IT firm delivering software development, infrastructure, design, and managed support for businesses that depend on their technology.',
+    'boylar is a full-service IT firm delivering software development, infrastructure, design, and managed support for businesses that depend on their technology.',
   email: 'hello@boylar.com',
   supportEmail: 'support@boylar.com',
   phone: '',
-  legalName: 'Boylar',
+  legalName: 'boylar',
   businessHours: 'Sunday–Thursday, 9:00–18:00 (GMT+6)',
   address: {
     line1: '',

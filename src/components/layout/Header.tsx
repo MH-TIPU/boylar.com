@@ -56,7 +56,7 @@ export function Header({
     >
       <Container size="wide">
         <div className="flex h-18 items-center justify-between gap-6 py-4">
-          <Link href="/" aria-label="Boylar — home">
+          <Link href="/" aria-label="boylar — home">
             <Logo />
           </Link>
 

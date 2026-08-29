@@ -17,7 +17,7 @@ export const SiteSettings: GlobalConfig = {
         {
           label: 'Brand',
           fields: [
-            { name: 'siteName', type: 'text', required: true, defaultValue: 'Boylar' },
+            { name: 'siteName', type: 'text', required: true, defaultValue: 'boylar' },
             {
               name: 'tagline',
               type: 'text',

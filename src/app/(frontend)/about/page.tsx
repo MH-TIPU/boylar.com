@@ -20,7 +20,7 @@ export const revalidate = 3600
 export const metadata: Metadata = pageMetadata({
   title: 'About',
   description:
-    'Boylar is a full-service IT firm covering software, infrastructure, design, and managed support — staffed in-house so nothing gets subcontracted behind your back.',
+    'boylar is a full-service IT firm covering software, infrastructure, design, and managed support — staffed in-house so nothing gets subcontracted behind your back.',
   path: '/about',
 })
 
@@ -57,7 +57,7 @@ export default async function AboutPage() {
   return (
     <>
       <PageHeader
-        eyebrow="About Boylar"
+        eyebrow="About boylar"
         title="One team accountable for the whole stack"
         description="Most businesses end up with a developer, a hardware vendor, a designer, and an agency — none of whom talk to each other, all of whom blame the others when something breaks. We exist to be the single answer to that."
       />
@@ -73,7 +73,7 @@ export default async function AboutPage() {
                 what got built, between the vendor who installed it and the one now supporting it.
               </p>
               <p className="leading-relaxed text-fg-muted">
-                Boylar covers all six disciplines in-house precisely so those gaps have an owner.
+                boylar covers all six disciplines in-house precisely so those gaps have an owner.
                 When your storefront is slow, we do not need to arrange a call between three
                 companies to find out whether it is the code, the database, or the network. It is
                 one team, and the answer is our responsibility either way.

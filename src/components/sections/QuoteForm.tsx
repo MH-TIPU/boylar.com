@@ -106,7 +106,7 @@ export function QuoteForm({ services }: { services: Service[] }) {
                       aria-hidden
                       className={cn(
                         'mt-0.5 grid size-5 shrink-0 place-items-center rounded-md border transition-colors',
-                        checked ? 'border-accent bg-accent text-accent-fg' : 'border-line-strong',
+                        checked ? 'border-accent-solid bg-accent-solid text-accent-fg' : 'border-line-strong',
                       )}
                     >
                       {checked ? <Check className="size-3.5" /> : null}

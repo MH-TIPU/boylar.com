@@ -1,6 +1,6 @@
-# Boylar
+# boylar
 
-Marketing site and CMS for Boylar, a full-service IT firm.
+Marketing site and CMS for boylar, a full-service IT firm.
 
 **Stack:** Next.js 16 (App Router) · TypeScript · Tailwind CSS v4 · Payload CMS 3 · PostgreSQL
 
@@ -67,8 +67,6 @@ fabricated testimonials are unlawful in most jurisdictions.
 
 Also still needed:
 
-- **A real logo.** `src/components/layout/Logo.tsx` renders a placeholder
-  wordmark. Upload real files in Site Settings → Brand, or replace that component.
 - **Company details.** Site Settings → Contact: phone, registered address, legal
   name, and company registration number. The footer and JSON-LD read from there.
 - **Legal review.** `/privacy`, `/terms`, and `/cookies` are structural templates
@@ -112,6 +110,51 @@ catch-all route does not shadow the site's own endpoints. This is set in
 
 ---
 
+## Brand
+
+The source of truth is **`boylar-kit/`** — logo files, fonts, colour
+specification, and usage rules. `boylar-kit/BRAND-GUIDE.md` governs; this section
+only records how the site applies it.
+
+Assets in use:
+
+| Where | File |
+| --- | --- |
+| Header and footer | `public/brand/boylar-lockup-horizontal-white.svg` |
+| Favicons, touch icon, PWA icons | `public/favicon.*`, `public/apple-touch-icon.png`, `public/android-chrome-*.png` |
+| Social sharing | `public/og-image.png` |
+
+Typography is **Poppins** throughout, loaded via `next/font/google` and
+self-hosted at build. The kit ships Medium/SemiBold/Bold as TTF but not Regular,
+which body copy needs — same SIL OFL licence either way.
+
+The brand name is **always lowercase**, including at the start of a sentence.
+
+### Colour on a dark background
+
+The brand palette is specified for light backgrounds. Purple `#534AB7` scores
+6.93:1 on white but only **2.6–2.9:1 on this site's dark surfaces**, which fails
+WCAG AA and even the 3:1 floor for large text. So:
+
+| Token | Value | Role | Contrast |
+| --- | --- | --- | --- |
+| `--color-accent` | `#7F77DD` | Text, icons, links on dark | 4.77–5.30:1 |
+| `--color-accent-solid` | `#6157C7` | Button fills, always with white | 5.68:1 white-on-fill |
+| `--color-accent-solid-hover` | `#6D66CE` | Hover state | 4.73:1 |
+| `--color-brand` | `#534AB7` | The brand purple, unaltered — light surfaces, print, logo | 6.93:1 on white |
+
+`#7F77DD` is the guide's own **Purple light**, which it sanctions for accents.
+`#6157C7` sits between it and the brand purple so fills still read as brand
+purple while carrying white text. The unaltered `#534AB7` is kept as
+`--color-brand` and is what the logo files and `theme-color` use.
+
+Every token pair on the site passes WCAG AA for normal text; the lowest is
+4.57:1.
+
+> If the site ever moves to a light design, use `--color-brand` directly as the
+> accent — it is the correct choice there, and these substitutions become
+> unnecessary.
+
 ## Design system
 
 All tokens live in `src/styles/globals.css` under `@theme`. Tailwind v4 generates
@@ -119,8 +162,6 @@ utilities from them automatically — `--color-accent` becomes `text-accent`,
 `--text-display-lg` becomes `text-display-lg`.
 
 The site commits to a single dark look; there is no light palette to maintain.
-To change the accent colour, edit `--color-accent` and `--color-accent-hover` in
-one place.
 
 Motion respects `prefers-reduced-motion` throughout.
 

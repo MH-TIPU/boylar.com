@@ -62,7 +62,7 @@ export default async function ServiceDetailPage({
           name: service.title,
           description: service.summary,
           url: absoluteUrl(`/services/${service.slug}`),
-          provider: { '@type': 'Organization', name: 'Boylar' },
+          provider: { '@type': 'Organization', name: 'boylar' },
         }}
       />
       {faqs.length > 0 ? (

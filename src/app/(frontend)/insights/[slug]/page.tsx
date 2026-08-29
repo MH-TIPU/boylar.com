@@ -59,8 +59,8 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           datePublished: post.publishedAt,
           dateModified: post.updatedAt,
           url: absoluteUrl(`/insights/${post.slug}`),
-          author: { '@type': author ? 'Person' : 'Organization', name: author?.name ?? 'Boylar' },
-          publisher: { '@type': 'Organization', name: 'Boylar' },
+          author: { '@type': author ? 'Person' : 'Organization', name: author?.name ?? 'boylar' },
+          publisher: { '@type': 'Organization', name: 'boylar' },
         }}
       />
 

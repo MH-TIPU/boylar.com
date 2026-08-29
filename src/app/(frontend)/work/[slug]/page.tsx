@@ -67,7 +67,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           name: project.title,
           abstract: project.summary,
           url: absoluteUrl(`/work/${project.slug}`),
-          creator: { '@type': 'Organization', name: 'Boylar' },
+          creator: { '@type': 'Organization', name: 'boylar' },
         }}
       />
 

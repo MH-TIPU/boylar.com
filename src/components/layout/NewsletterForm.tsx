@@ -62,7 +62,7 @@ export function NewsletterForm() {
           type="submit"
           disabled={state === 'loading'}
           aria-label="Subscribe"
-          className="grid size-11 shrink-0 place-items-center rounded-full bg-accent text-accent-fg transition-colors hover:bg-accent-hover disabled:opacity-60"
+          className="grid size-11 shrink-0 place-items-center rounded-full bg-accent-solid text-accent-fg transition-colors hover:bg-accent-solid-hover disabled:opacity-60"
         >
           {state === 'loading' ? (
             <Loader2 className="size-4 animate-spin" aria-hidden />

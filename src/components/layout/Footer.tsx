@@ -34,7 +34,7 @@ export function Footer({
       <Container size="wide">
         <div className="grid gap-12 py-16 lg:grid-cols-[1.4fr_2fr] lg:gap-20">
           <div className="flex flex-col gap-6">
-            <Link href="/" aria-label="Boylar — home">
+            <Link href="/" aria-label="boylar — home">
               <Logo />
             </Link>
             <p className="max-w-sm text-sm leading-relaxed text-fg-muted">

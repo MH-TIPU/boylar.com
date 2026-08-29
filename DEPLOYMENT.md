@@ -61,8 +61,35 @@ git pull
 docker compose up -d --build
 ```
 
-Schema changes are applied automatically on start. Take a backup first (below)
-if the change touches existing columns.
+### ⚠️ Schema changes and auto-push
+
+Payload's Postgres adapter syncs the schema automatically on start. That is
+convenient in development and **a real risk in production**: a change it cannot
+apply in place can result in a table being recreated, taking its rows with it.
+
+We saw exactly that during development — the seeded case studies, articles, job
+openings, testimonials, and media rows disappeared from a running database
+without any delete being issued. Re-seeding restored them, and `pnpm seed` was
+verified non-destructive afterwards, but the cause was never pinned down. In
+development that costs a command. In production it would cost your content.
+
+So, before any deploy that changes a collection or global:
+
+1. **Take a backup and confirm the dump is non-empty** (see below).
+2. Apply the update.
+3. Check the content is still there before you walk away:
+
+```bash
+docker compose exec -T db psql -U boylar boylar -c \
+  "SELECT 'projects='||(SELECT count(*) FROM projects)||\
+   ' posts='||(SELECT count(*) FROM posts)||\
+   ' services='||(SELECT count(*) FROM services);"
+```
+
+For a content-heavy production site, move off auto-push to explicit migrations
+(`payload migrate:create`, then `payload migrate` on deploy) so schema changes
+are reviewed as code rather than inferred at boot. That is the change I would
+make first once real content is in.
 
 ---
 

@@ -17,7 +17,7 @@ export const revalidate = 900
 export const metadata: Metadata = pageMetadata({
   title: 'Careers',
   description:
-    'Open roles at Boylar across engineering, design, infrastructure, and operations.',
+    'Open roles at boylar across engineering, design, infrastructure, and operations.',
   path: '/careers',
 })
 

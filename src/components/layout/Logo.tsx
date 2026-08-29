@@ -1,36 +1,66 @@
+import Image from 'next/image'
+
 import { cn } from '@/lib/utils'
 
 /**
- * Placeholder wordmark until a real logo is supplied. The mark is an abstract
- * "B" built from two stacked node shapes — reads as network/infrastructure.
+ * Brand assets from boylar-kit/. The guide requires the supplied files rather
+ * than retyped text, so these render the SVGs directly and are never recoloured.
+ *
+ * `unoptimized` because SVGs gain nothing from the image optimizer, and routing
+ * them through it would require relaxing the SVG policy for no benefit.
+ *
+ * Minimum sizes from the guide: horizontal lockup 90px wide, mark 16px.
  */
-export function Logo({ className, showWordmark = true }: { className?: string; showWordmark?: boolean }) {
+
+const LOCKUP_RATIO = 1201.75 / 428.05
+
+export function Logo({
+  className,
+  height = 34,
+  variant = 'white',
+}: {
+  className?: string
+  height?: number
+  /** `white` for dark backgrounds, `colour` for light ones. */
+  variant?: 'white' | 'colour'
+}) {
+  const src =
+    variant === 'white'
+      ? '/brand/boylar-lockup-horizontal-white.svg'
+      : '/brand/boylar-lockup-horizontal.svg'
+
   return (
-    <span className={cn('inline-flex items-center gap-2.5', className)}>
-      <svg
-        viewBox="0 0 32 32"
-        className="size-8 shrink-0"
-        role="img"
-        aria-label="Boylar"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <defs>
-          <linearGradient id="boylar-mark" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#00D4FF" />
-            <stop offset="1" stopColor="#7B61FF" />
-          </linearGradient>
-        </defs>
-        <rect width="32" height="32" rx="9" fill="url(#boylar-mark)" />
-        <path
-          d="M11 8.5h6.2a4.15 4.15 0 0 1 0 8.3H11V8.5Zm0 8.3h6.9a4.35 4.35 0 0 1 0 8.7H11v-8.7Z"
-          fill="#04121A"
-          fillOpacity="0.92"
-        />
-      </svg>
-      {showWordmark ? (
-        <span className="font-display text-lg font-semibold tracking-tight">Boylar</span>
-      ) : null}
-    </span>
+    <Image
+      src={src}
+      alt="boylar"
+      height={height}
+      width={Math.round(height * LOCKUP_RATIO)}
+      priority
+      unoptimized
+      className={cn('h-auto w-auto', className)}
+      style={{ height, width: 'auto' }}
+    />
+  )
+}
+
+/** The mark on its own — for square contexts and tight spaces. */
+export function LogoMark({
+  className,
+  size = 32,
+  variant = 'white',
+}: {
+  className?: string
+  size?: number
+  variant?: 'white' | 'colour'
+}) {
+  return (
+    <Image
+      src={variant === 'white' ? '/brand/boylar-mark-white.svg' : '/brand/boylar-mark.svg'}
+      alt="boylar"
+      width={size}
+      height={size}
+      unoptimized
+      className={cn('shrink-0', className)}
+    />
   )
 }

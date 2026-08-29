@@ -31,7 +31,7 @@ const dirname = path.dirname(fileURLToPath(import.meta.url))
  */
 const email = process.env.SMTP_HOST
   ? nodemailerAdapter({
-      defaultFromName: process.env.EMAIL_FROM_NAME || 'Boylar',
+      defaultFromName: process.env.EMAIL_FROM_NAME || 'boylar',
       defaultFromAddress: process.env.EMAIL_FROM_ADDRESS || 'noreply@boylar.com',
       transportOptions: {
         host: process.env.SMTP_HOST,
@@ -55,7 +55,7 @@ export default buildConfig({
   admin: {
     user: Users.slug,
     meta: {
-      titleSuffix: ' · Boylar CMS',
+      titleSuffix: ' · boylar CMS',
     },
   },
   collections: [

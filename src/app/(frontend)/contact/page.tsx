@@ -16,7 +16,7 @@ export const revalidate = 3600
 export const metadata: Metadata = pageMetadata({
   title: 'Contact',
   description:
-    'Get in touch with Boylar about software, infrastructure, design, e-commerce, or managed IT support. We reply within one business day.',
+    'Get in touch with boylar about software, infrastructure, design, e-commerce, or managed IT support. We reply within one business day.',
   path: '/contact',
 })
 

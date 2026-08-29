@@ -1,8 +1,8 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 
 import { Footer } from '@/components/layout/Footer'
 import { Header, type NavLink } from '@/components/layout/Header'
-import { inter, jetbrainsMono, spaceGrotesk } from '@/lib/fonts'
+import { jetbrainsMono, poppins } from '@/lib/fonts'
 import { getNavigation, getSiteSettings } from '@/lib/payload'
 import { absoluteUrl } from '@/lib/utils'
 
@@ -20,7 +20,7 @@ const FALLBACK_NAV: NavLink[] = [
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSiteSettings()
-  const name = settings.siteName || 'Boylar'
+  const name = settings.siteName || 'boylar'
   const tagline = settings.tagline || 'Full-service IT partner'
 
   return {
@@ -37,17 +37,32 @@ export async function generateMetadata(): Promise<Metadata> {
       title: `${name} — ${tagline}`,
       description: settings.description,
       url: absoluteUrl(),
+      images: [{ url: absoluteUrl('/og-image.png'), width: 1200, height: 630 }],
     },
     twitter: {
       card: 'summary_large_image',
       title: `${name} — ${tagline}`,
       description: settings.description,
+      images: [absoluteUrl('/og-image.png')],
     },
     robots: { index: true, follow: true },
+    manifest: '/site.webmanifest',
+    icons: {
+      icon: [
+        { url: '/favicon.ico', sizes: 'any' },
+        { url: '/favicon.svg', type: 'image/svg+xml' },
+      ],
+      apple: '/apple-touch-icon.png',
+    },
     ...(settings.googleSiteVerification
       ? { verification: { google: settings.googleSiteVerification } }
       : {}),
   }
+}
+
+/** Brand purple, per boylar-kit/BRAND-GUIDE.md — colours the mobile browser chrome. */
+export const viewport: Viewport = {
+  themeColor: '#534AB7',
 }
 
 export default async function FrontendLayout({ children }: { children: React.ReactNode }) {
@@ -61,13 +76,13 @@ export default async function FrontendLayout({ children }: { children: React.Rea
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
+      className={`${poppins.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning
     >
       <body className="min-h-dvh antialiased">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-full focus:bg-accent focus:px-5 focus:py-2.5 focus:text-sm focus:font-medium focus:text-accent-fg"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-full focus:bg-accent-solid focus:px-5 focus:py-2.5 focus:text-sm focus:font-medium focus:text-accent-fg"
         >
           Skip to content
         </a>

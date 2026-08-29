@@ -1,21 +1,21 @@
-import { Inter, JetBrains_Mono, Space_Grotesk } from 'next/font/google'
+import { JetBrains_Mono, Poppins } from 'next/font/google'
 
 /**
- * Self-hosted by next/font at build time — no requests to Google at runtime,
- * and no layout shift from a late-arriving webfont.
+ * Poppins is the brand typeface (see boylar-kit/BRAND-GUIDE.md). Loaded through
+ * next/font so it is self-hosted at build time — no runtime request to Google,
+ * and no layout shift from a late-arriving webface.
+ *
+ * The kit ships Medium/SemiBold/Bold as TTF; Regular is needed for body copy,
+ * so the full family is pulled from Google Fonts (same SIL OFL licence).
  */
-export const inter = Inter({
+export const poppins = Poppins({
   subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
   display: 'swap',
-  variable: '--font-inter',
+  variable: '--font-poppins',
 })
 
-export const spaceGrotesk = Space_Grotesk({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-space-grotesk',
-})
-
+/** Used only for small monospace labels and metrics — not a brand typeface. */
 export const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
   display: 'swap',

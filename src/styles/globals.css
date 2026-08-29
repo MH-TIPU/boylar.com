@@ -24,14 +24,30 @@
   --color-fg-muted: #a6aebb;
   --color-fg-subtle: #737d8c;
 
-  /* Signature accent. One colour, used sparingly. */
-  --color-accent: #00d4ff;
-  --color-accent-hover: #38dfff;
-  --color-accent-fg: #04121a;
-  --color-accent-soft: rgba(0, 212, 255, 0.12);
+  /* ── Brand ────────────────────────────────────────────────────────────
+     Source of truth: boylar-kit/BRAND-GUIDE.md
 
-  /* Secondary accent — gradient partner only, never on its own */
-  --color-violet: #7b61ff;
+     The brand palette is built for light backgrounds — purple #534AB7 scores
+     6.93:1 on white but only 2.6–2.9:1 on these dark surfaces, which fails
+     WCAG AA. So on dark we use the guide's Purple light as the accent (4.8–5.3:1)
+     and a slightly lifted purple for solid fills, which carries white text at
+     5.68:1. The true brand purple is kept below for light contexts and print. */
+
+  /* Accent — text, icons, borders, links on dark */
+  --color-accent: #7f77dd;
+  --color-accent-hover: #9992e6;
+  --color-accent-soft: rgba(127, 119, 221, 0.14);
+
+  /* Solid fills — buttons and badges. Always paired with white. */
+  --color-accent-solid: #6157c7;
+  --color-accent-solid-hover: #6d66ce;
+  --color-accent-fg: #ffffff;
+
+  /* Brand palette, unaltered — for light surfaces, print, and the logo */
+  --color-brand: #534ab7;
+  --color-brand-deep: #3c3489;
+  --color-brand-light: #7f77dd;
+  --color-brand-tint: #eeedfe;
 
   /* Status */
   --color-success: #34d399;
@@ -39,8 +55,9 @@
   --color-warning: #fbbf24;
 
   /* Typography */
-  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  /* Poppins is the brand typeface (SIL OFL). Headings SemiBold, body Regular. */
+  --font-display: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
 
   /* Fluid display sizes — scale with the viewport, no breakpoint jumps */
@@ -76,7 +93,6 @@
     background-color: var(--color-base);
     color: var(--color-fg);
     font-family: var(--font-sans);
-    font-feature-settings: 'cv11', 'ss01';
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
@@ -102,7 +118,7 @@
   }
 
   ::selection {
-    background: var(--color-accent);
+    background: var(--color-accent-solid);
     color: var(--color-accent-fg);
   }
 
@@ -148,8 +164,8 @@
 
   .bg-glow {
     background:
-      radial-gradient(60% 50% at 50% 0%, rgba(0, 212, 255, 0.14), transparent 70%),
-      radial-gradient(40% 40% at 85% 20%, rgba(123, 97, 255, 0.12), transparent 70%);
+      radial-gradient(60% 50% at 50% 0%, rgba(127, 119, 221, 0.16), transparent 70%),
+      radial-gradient(40% 40% at 85% 20%, rgba(83, 74, 183, 0.14), transparent 70%);
   }
 
   /* 1px gradient border, drawn with two backgrounds so it survives radius */
@@ -157,7 +173,7 @@
     position: relative;
     background:
       linear-gradient(var(--color-surface), var(--color-surface)) padding-box,
-      linear-gradient(135deg, var(--color-accent), var(--color-violet)) border-box;
+      linear-gradient(135deg, var(--color-accent), var(--color-brand)) border-box;
     border: 1px solid transparent;
   }
 

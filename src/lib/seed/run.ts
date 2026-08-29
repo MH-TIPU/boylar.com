@@ -29,7 +29,7 @@ async function main() {
     await payload.create({
       collection: 'users',
       data: {
-        name: 'Boylar Admin',
+        name: 'Admin',
         email: SITE_SETTINGS.email,
         password: generatedPassword,
         role: 'admin',
