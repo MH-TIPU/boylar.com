@@ -1,61 +1,179 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Boylar
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Marketing site and CMS for Boylar, a full-service IT firm.
 
-## About Laravel
+**Stack:** Next.js 16 (App Router) · TypeScript · Tailwind CSS v4 · Payload CMS 3 · PostgreSQL
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+The public site and the CMS run as one application. Content is edited at
+`/admin` and rendered by the same Next.js server, so there is no separate
+backend to deploy or keep in sync.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Quick start
 
-## Learning Laravel
+Requires Node 20.9+, pnpm, and a PostgreSQL database.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+```bash
+pnpm install
+cp .env.example .env        # then fill in DATABASE_URI and PAYLOAD_SECRET
+createdb boylar_dev
+pnpm seed                   # services, site settings, navigation, legal pages
+pnpm dev
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+The seed prints a generated admin password on first run. **Change it immediately
+after signing in at http://localhost:3000/admin.**
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Generate a `PAYLOAD_SECRET` with:
 
-## Laravel Sponsors
+```bash
+openssl rand -base64 32
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## Scripts
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+| Command | What it does |
+| --- | --- |
+| `pnpm dev` | Development server on :3000 |
+| `pnpm build` | Production build (runs without a database) |
+| `pnpm start` | Serve the production build |
+| `pnpm typecheck` | `tsc --noEmit` |
+| `pnpm lint` | ESLint |
+| `pnpm seed` | Real content — safe to re-run, matches on slug |
+| `pnpm seed:demo` | **Placeholder** case studies, testimonials, articles, jobs |
+| `pnpm seed:demo:clear` | Removes everything `seed:demo` created |
+| `pnpm generate:types` | Regenerate `src/payload-types.ts` after schema changes |
 
-## Contributing
+After changing any collection or global, run `pnpm generate:types` — the
+frontend is typed against that file.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## ⚠️ Before going live
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+The site currently contains placeholder content that **must not ship**:
 
-## Security Vulnerabilities
+```bash
+pnpm seed:demo:clear
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+That removes the invented case studies (Northwind Logistics, Apex Financial,
+Nova Health), the three fabricated testimonials, the two sample articles, and
+the two sample job openings. Publishing invented client work is misleading, and
+fabricated testimonials are unlawful in most jurisdictions.
 
-## License
+Also still needed:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- **A real logo.** `src/components/layout/Logo.tsx` renders a placeholder
+  wordmark. Upload real files in Site Settings → Brand, or replace that component.
+- **Company details.** Site Settings → Contact: phone, registered address, legal
+  name, and company registration number. The footer and JSON-LD read from there.
+- **Legal review.** `/privacy`, `/terms`, and `/cookies` are structural templates
+  with a placeholder notice at the top. Have a qualified adviser review them and
+  remove that notice.
+- **SMTP credentials.** Without `SMTP_HOST`, contact emails are logged to the
+  console instead of sent. Submissions are still saved to the CMS either way.
+
+---
+
+## Project structure
+
+```
+src/
+├── app/
+│   ├── (frontend)/       Public site — one directory per route
+│   ├── (payload)/        CMS admin UI and its REST API (mounted at /cms-api)
+│   └── api/              Public endpoints: contact, subscribe, revalidate
+├── collections/          Payload collections, one file each
+├── globals/              Site Settings and Navigation
+├── components/
+│   ├── ui/               Primitives — Button, Card, Field, RichText…
+│   ├── layout/           Header, Footer, Logo
+│   └── sections/         Composed page sections — Hero, ServicesGrid…
+├── lib/
+│   ├── payload.ts        Cached data access via Payload's Local API
+│   ├── seed/             Seed scripts and their content
+│   └── validation.ts     Zod schemas shared by forms and API routes
+└── styles/globals.css    Design tokens (Tailwind v4 `@theme`)
+```
+
+### Two route groups, two root layouts
+
+`(frontend)` and `(payload)` each own a root layout. This is deliberate: the CMS
+admin must not inherit the site's fonts, header, or dark palette.
+
+Payload's REST API is mounted at **`/cms-api`**, not the default `/api`, so its
+catch-all route does not shadow the site's own endpoints. This is set in
+`src/payload.config.ts` under `routes.api` — if you change it, move
+`src/app/(payload)/cms-api/` to match.
+
+---
+
+## Design system
+
+All tokens live in `src/styles/globals.css` under `@theme`. Tailwind v4 generates
+utilities from them automatically — `--color-accent` becomes `text-accent`,
+`--text-display-lg` becomes `text-display-lg`.
+
+The site commits to a single dark look; there is no light palette to maintain.
+To change the accent colour, edit `--color-accent` and `--color-accent-hover` in
+one place.
+
+Motion respects `prefers-reduced-motion` throughout.
+
+---
+
+## Content model
+
+| Collection | Purpose |
+| --- | --- |
+| `services` | The six service pillars, with features, deliverables, FAQs |
+| `service-categories` | Grouping for services |
+| `projects` | Case studies — challenge, solution, results, metrics |
+| `testimonials` | Client quotes, optionally linked to a case study |
+| `awards` | Recognition, shown on About |
+| `careers` | Job openings, with drafts |
+| `posts` | Insights articles, with drafts |
+| `pages` | Legal and ad-hoc pages, resolved at `/[slug]` |
+| `contact-submissions` | Enquiries from the contact and quote forms |
+| `subscribers` | Newsletter signups |
+| `media` | Uploads with generated responsive sizes |
+| `users` | CMS accounts — `admin` or `editor` |
+
+Globals: **Site Settings** (brand, contact, social, analytics) and
+**Navigation** (header and footer menus, header CTA).
+
+---
+
+## Forms and spam handling
+
+`/api/contact` handles both the contact and quote forms; `/api/subscribe`
+handles the footer signup. Each applies, in order:
+
+1. Rate limiting — 5 requests per IP per 10 minutes (`src/lib/rate-limit.ts`)
+2. Zod validation, using the same schema the browser used
+3. A honeypot field, accepted silently so bots learn nothing
+4. Persistence to the CMS **before** any email is attempted
+
+A mail failure never loses an enquiry — the record is already saved, and the
+error is logged rather than shown to the sender.
+
+> The rate limiter holds counts in process memory. If you ever run more than one
+> replica, move it to Redis — each replica currently keeps its own counts.
+
+---
+
+## Deployment
+
+See **[DEPLOYMENT.md](DEPLOYMENT.md)** for the Docker Compose setup, TLS,
+backups, and the launch checklist.
+
+---
+
+## Previous implementation
+
+This site replaced a Laravel 12 + Blade + Filament application. That codebase is
+preserved in full on the **`legacy-laravel`** branch.

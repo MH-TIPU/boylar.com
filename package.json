@@ -1,17 +1,61 @@
 {
-    "$schema": "https://json.schemastore.org/package.json",
-    "private": true,
-    "type": "module",
-    "scripts": {
-        "build": "vite build",
-        "dev": "vite"
-    },
-    "devDependencies": {
-        "@tailwindcss/vite": "^4.0.0",
-        "axios": "^1.11.0",
-        "concurrently": "^9.0.1",
-        "laravel-vite-plugin": "^2.0.0",
-        "tailwindcss": "^4.0.0",
-        "vite": "^7.0.4"
-    }
+  "name": "boylar",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Boylar — full-service IT firm. Marketing site and CMS.",
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "payload": "payload",
+    "generate:types": "payload generate:types",
+    "seed": "tsx src/lib/seed/run.ts",
+    "seed:demo": "tsx src/lib/seed/run-demo.ts",
+    "seed:demo:clear": "tsx src/lib/seed/clear-demo.ts"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^5.0.1",
+    "@payloadcms/db-postgres": "3.88.0",
+    "@payloadcms/email-nodemailer": "3.88.0",
+    "@payloadcms/next": "3.88.0",
+    "@payloadcms/richtext-lexical": "3.88.0",
+    "@payloadcms/ui": "3.88.0",
+    "clsx": "^2.1.1",
+    "dotenv": "^17.4.2",
+    "graphql": "^16.11.0",
+    "lucide-react": "^0.469.0",
+    "motion": "^12.23.12",
+    "next": "16.3.3",
+    "payload": "3.88.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "react-hook-form": "^7.54.2",
+    "sharp": "^0.34.2",
+    "tailwind-merge": "^3.0.2",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^22.10.5",
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
+    "eslint": "^9.18.0",
+    "eslint-config-next": "16.3.3",
+    "tailwindcss": "^4.3.3",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "sharp",
+      "esbuild",
+      "unrs-resolver"
+    ]
+  }
 }
