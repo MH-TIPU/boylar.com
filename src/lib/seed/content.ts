@@ -491,6 +491,7 @@ export const NAVIGATION = {
   ctaHref: '/quote',
   header: [
     { label: 'Services', href: '/services' },
+    { label: 'Products', href: '/products' },
     { label: 'Work', href: '/work' },
     { label: 'About', href: '/about' },
     { label: 'Insights', href: '/insights' },
@@ -511,6 +512,7 @@ export const NAVIGATION = {
     {
       heading: 'Company',
       links: [
+        { label: 'Products', href: '/products' },
         { label: 'About', href: '/about' },
         { label: 'Our Work', href: '/work' },
         { label: 'Insights', href: '/insights' },

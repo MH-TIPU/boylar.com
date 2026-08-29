@@ -11,6 +11,7 @@ import '@/styles/globals.css'
 /** Used before the CMS globals have been filled in. */
 const FALLBACK_NAV: NavLink[] = [
   { label: 'Services', href: '/services' },
+  { label: 'Products', href: '/products' },
   { label: 'Work', href: '/work' },
   { label: 'About', href: '/about' },
   { label: 'Insights', href: '/insights' },

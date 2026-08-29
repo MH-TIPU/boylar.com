@@ -5,11 +5,18 @@ import { FAQ } from '@/components/sections/FAQ'
 import { FeaturedWork } from '@/components/sections/FeaturedWork'
 import { Hero } from '@/components/sections/Hero'
 import { Process } from '@/components/sections/Process'
+import { ProductsGrid } from '@/components/sections/ProductsGrid'
 import { ServicesGrid } from '@/components/sections/ServicesGrid'
 import { Stats } from '@/components/sections/Stats'
 import { Testimonials } from '@/components/sections/Testimonials'
 import { JsonLd } from '@/components/ui/JsonLd'
-import { getProjects, getServices, getSiteSettings, getTestimonials } from '@/lib/payload'
+import {
+  getProducts,
+  getProjects,
+  getServices,
+  getSiteSettings,
+  getTestimonials,
+} from '@/lib/payload'
 import { absoluteUrl } from '@/lib/utils'
 
 export const revalidate = 3600
@@ -19,8 +26,9 @@ export const metadata: Metadata = {
 }
 
 export default async function HomePage() {
-  const [services, projects, testimonials, settings] = await Promise.all([
+  const [services, products, projects, testimonials, settings] = await Promise.all([
     getServices(),
+    getProducts({ featuredOnly: true }),
     getProjects({ featuredOnly: true, limit: 4 }),
     getTestimonials({ featuredOnly: true }),
     getSiteSettings(),
@@ -68,6 +76,7 @@ export default async function HomePage() {
       <Hero tagline={settings.description} />
       <Stats />
       <ServicesGrid services={services} />
+      <ProductsGrid products={products} />
       <FeaturedWork projects={projects} />
       <Process />
       <Testimonials testimonials={testimonials} />

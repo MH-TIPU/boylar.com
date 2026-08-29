@@ -10,9 +10,17 @@ import 'dotenv/config'
 import { getPayload } from 'payload'
 import sharp from 'sharp'
 
-import type { Project } from '../../payload-types'
+import type { Product, Project } from '../../payload-types'
+
+type ProductTier = NonNullable<NonNullable<Product['pricing']>['tiers']>[number]
 import config from '../../payload.config'
-import { DEMO_CAREERS, DEMO_POSTS, DEMO_PROJECTS, DEMO_TESTIMONIALS } from './demo'
+import {
+  DEMO_CAREERS,
+  DEMO_POSTS,
+  DEMO_PRODUCTS,
+  DEMO_PROJECTS,
+  DEMO_TESTIMONIALS,
+} from './demo'
 
 /** Flat gradient stand-ins so image slots are filled during design review. */
 async function placeholderImage(from: string, to: string) {
@@ -156,6 +164,47 @@ async function main() {
     }
   }
   console.log(`✓ ${DEMO_POSTS.length} placeholder articles`)
+
+  // ── Products ─────────────────────────────────────────────────────────────
+  for (const [i, product] of DEMO_PRODUCTS.entries()) {
+    const { pricing, ...rest } = product
+
+    const data = {
+      ...rest,
+      // Demo data types these as plain strings; the collection narrows them.
+      productType: product.productType as Product['productType'],
+      platforms: product.platforms as Product['platforms'],
+      availability: product.availability as Product['availability'],
+      coverImage: mediaIds[i % mediaIds.length]!,
+      pricing: {
+        ...pricing,
+        currency: pricing.currency as NonNullable<Product['pricing']>['currency'],
+        tiers: pricing.tiers.map(
+          (tier) =>
+            ({
+              ...tier,
+              priceType: tier.priceType as ProductTier['priceType'],
+              ...('period' in tier ? { period: tier.period as ProductTier['period'] } : {}),
+              features: (tier.features ?? []).map((item) => ({ item })),
+            }) as ProductTier,
+        ),
+      },
+      _status: 'published' as const,
+    }
+
+    const existing = await payload.find({
+      collection: 'products',
+      where: { slug: { equals: product.slug } },
+      limit: 1,
+    })
+
+    if (existing.docs[0]) {
+      await payload.update({ collection: 'products', id: existing.docs[0].id, data })
+    } else {
+      await payload.create({ collection: 'products', data })
+    }
+  }
+  console.log(`✓ ${DEMO_PRODUCTS.length} placeholder products`)
 
   // ── Job openings ─────────────────────────────────────────────────────────
   for (const role of DEMO_CAREERS) {

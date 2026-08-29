@@ -13,6 +13,7 @@ import { ContactSubmissions } from '@/collections/ContactSubmissions'
 import { Media } from '@/collections/Media'
 import { Pages } from '@/collections/Pages'
 import { Posts } from '@/collections/Posts'
+import { Products } from '@/collections/Products'
 import { Projects } from '@/collections/Projects'
 import { ServiceCategories } from '@/collections/ServiceCategories'
 import { Services } from '@/collections/Services'
@@ -61,6 +62,7 @@ export default buildConfig({
   collections: [
     Services,
     ServiceCategories,
+    Products,
     Projects,
     Testimonials,
     Awards,

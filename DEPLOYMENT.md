@@ -167,7 +167,8 @@ container on the internal network. Keep it that way.
 
 ## Launch checklist
 
-- [ ] `pnpm seed:demo:clear` — remove all placeholder case studies and testimonials
+- [ ] `pnpm seed:demo:clear` — remove all placeholder case studies, products, and testimonials
+- [ ] **Every published product price checked against what you actually charge** — the seeded prices are invented
 - [ ] Real logo uploaded in Site Settings → Brand
 - [ ] Phone, address, legal name, and registration number filled in
 - [ ] `/privacy`, `/terms`, `/cookies` reviewed by a legal adviser, placeholder notice removed

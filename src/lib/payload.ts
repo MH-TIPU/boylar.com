@@ -157,3 +157,29 @@ export async function staticParams<T>(fn: () => Promise<T[]>): Promise<T[]> {
     return []
   }
 }
+
+export const getProducts = cache(async ({ featuredOnly = false } = {}) => {
+  const payload = await getPayloadClient()
+  const { docs } = await payload.find({
+    collection: 'products',
+    limit: 50,
+    sort: 'order',
+    depth: 2,
+    where: {
+      _status: { equals: 'published' },
+      ...(featuredOnly ? { featured: { equals: true } } : {}),
+    },
+  })
+  return docs
+})
+
+export const getProductBySlug = cache(async (slug: string) => {
+  const payload = await getPayloadClient()
+  const { docs } = await payload.find({
+    collection: 'products',
+    where: { slug: { equals: slug }, _status: { equals: 'published' } },
+    limit: 1,
+    depth: 2,
+  })
+  return docs[0] ?? null
+})

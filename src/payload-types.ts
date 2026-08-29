@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     services: Service;
     'service-categories': ServiceCategory;
+    products: Product;
     projects: Project;
     testimonials: Testimonial;
     awards: Award;
@@ -88,6 +89,7 @@ export interface Config {
   collectionsSelect: {
     services: ServicesSelect<false> | ServicesSelect<true>;
     'service-categories': ServiceCategoriesSelect<false> | ServiceCategoriesSelect<true>;
+    products: ProductsSelect<false> | ProductsSelect<true>;
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
     testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
     awards: AwardsSelect<false> | AwardsSelect<true>;
@@ -335,6 +337,171 @@ export interface Media {
       filename?: string | null;
     };
   };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products".
+ */
+export interface Product {
+  id: number;
+  title: string;
+  /**
+   * One line under the name. What it does, in plain words.
+   */
+  tagline: string;
+  /**
+   * The card blurb on the products index and home page.
+   */
+  summary: string;
+  productType: 'wordpress-plugin' | 'web-app' | 'mobile-app' | 'desktop-app' | 'solution';
+  /**
+   * Shown as badges. Leave empty if not meaningful.
+   */
+  platforms?: ('web' | 'wordpress' | 'ios' | 'android' | 'windows' | 'macos' | 'linux' | 'self-hosted')[] | null;
+  availability: 'live' | 'beta' | 'coming-soon';
+  logo?: (number | null) | Media;
+  /**
+   * Screenshot or hero image for the product page.
+   */
+  coverImage?: (number | null) | Media;
+  body?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * What it does. 3–8 works best.
+   */
+  features?:
+    | {
+        title: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Label/value pairs — version, PHP requirement, minimum OS, licence. Rendered as a table.
+   */
+  specs?:
+    | {
+        label: string;
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  gallery?:
+    | {
+        image: number | Media;
+        caption?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  faqs?:
+    | {
+        question: string;
+        answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  pricing?: {
+    currency?: ('USD' | 'BDT' | 'EUR' | 'GBP') | null;
+    tiers?:
+      | {
+          name: string;
+          priceType: 'fixed' | 'free' | 'custom';
+          /**
+           * Number only — the currency symbol is added automatically.
+           */
+          price?: number | null;
+          period?: ('month' | 'year' | 'once') | null;
+          /**
+           * e.g. "per site" or "up to 10 users"
+           */
+          priceNote?: string | null;
+          description?: string | null;
+          features?:
+            | {
+                item: string;
+                id?: string | null;
+              }[]
+            | null;
+          /**
+           * Emphasise this plan. Use on at most one.
+           */
+          highlighted?: boolean | null;
+          /**
+           * e.g. "Most popular"
+           */
+          badge?: string | null;
+          ctaLabel?: string | null;
+          /**
+           * Leave blank to link to the quote form.
+           */
+          ctaHref?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Shown under the plans — VAT, refund policy, and so on.
+     */
+    note?: string | null;
+  };
+  links?: {
+    website?: string | null;
+    demo?: string | null;
+    docs?: string | null;
+    wordpressOrg?: string | null;
+    appStore?: string | null;
+    playStore?: string | null;
+    download?: string | null;
+    github?: string | null;
+  };
+  /**
+   * Optional. Falls back to the page title and site defaults when empty.
+   */
+  seo?: {
+    /**
+     * Browser tab and search result headline. Aim for under 60 characters.
+     */
+    title?: string | null;
+    /**
+     * Search result snippet. Aim for 140–160 characters.
+     */
+    description?: string | null;
+    /**
+     * Social share image. 1200×630 recommended.
+     */
+    image?: (number | null) | Media;
+    /**
+     * Hide this page from search engines.
+     */
+    noIndex?: boolean | null;
+  };
+  /**
+   * Leave blank to generate from the title. Avoid changing it once the page is live.
+   */
+  slug: string;
+  /**
+   * Lower numbers appear first.
+   */
+  order?: number | null;
+  /**
+   * Show on the home page.
+   */
+  featured?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -834,6 +1001,10 @@ export interface PayloadLockedDocument {
         value: number | ServiceCategory;
       } | null)
     | ({
+        relationTo: 'products';
+        value: number | Product;
+      } | null)
+    | ({
         relationTo: 'projects';
         value: number | Project;
       } | null)
@@ -976,6 +1147,102 @@ export interface ServiceCategoriesSelect<T extends boolean = true> {
   description?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products_select".
+ */
+export interface ProductsSelect<T extends boolean = true> {
+  title?: T;
+  tagline?: T;
+  summary?: T;
+  productType?: T;
+  platforms?: T;
+  availability?: T;
+  logo?: T;
+  coverImage?: T;
+  body?: T;
+  features?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  specs?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        id?: T;
+      };
+  gallery?:
+    | T
+    | {
+        image?: T;
+        caption?: T;
+        id?: T;
+      };
+  faqs?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
+  pricing?:
+    | T
+    | {
+        currency?: T;
+        tiers?:
+          | T
+          | {
+              name?: T;
+              priceType?: T;
+              price?: T;
+              period?: T;
+              priceNote?: T;
+              description?: T;
+              features?:
+                | T
+                | {
+                    item?: T;
+                    id?: T;
+                  };
+              highlighted?: T;
+              badge?: T;
+              ctaLabel?: T;
+              ctaHref?: T;
+              id?: T;
+            };
+        note?: T;
+      };
+  links?:
+    | T
+    | {
+        website?: T;
+        demo?: T;
+        docs?: T;
+        wordpressOrg?: T;
+        appStore?: T;
+        playStore?: T;
+        download?: T;
+        github?: T;
+      };
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+        noIndex?: T;
+      };
+  slug?: T;
+  order?: T;
+  featured?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

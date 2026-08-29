@@ -14,7 +14,7 @@ import { DEMO_TESTIMONIALS } from './demo'
 async function main() {
   const payload = await getPayload({ config })
 
-  for (const collection of ['projects', 'posts', 'careers'] as const) {
+  for (const collection of ['projects', 'posts', 'careers', 'products'] as const) {
     const { docs } = await payload.delete({
       collection,
       where: { slug: { like: 'demo-' } },

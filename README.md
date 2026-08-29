@@ -61,8 +61,10 @@ pnpm seed:demo:clear
 ```
 
 That removes the invented case studies (Northwind Logistics, Apex Financial,
-Nova Health), the three fabricated testimonials, the two sample articles, and
-the two sample job openings. Publishing invented client work is misleading, and
+Nova Health), the four sample products (FormFlow, Ledgerly, ShiftBoard, Retail
+POS Suite — including their **prices**, which are invented), the three
+fabricated testimonials, the two sample articles, and the two sample job
+openings. Publishing invented client work is misleading, and
 fabricated testimonials are unlawful in most jurisdictions.
 
 Also still needed:
@@ -173,6 +175,7 @@ Motion respects `prefers-reduced-motion` throughout.
 | --- | --- |
 | `services` | The six service pillars, with features, deliverables, FAQs |
 | `service-categories` | Grouping for services |
+| `products` | Our own software — pricing tiers, platforms, specs, links |
 | `projects` | Case studies — challenge, solution, results, metrics |
 | `testimonials` | Client quotes, optionally linked to a case study |
 | `awards` | Recognition, shown on About |
@@ -186,6 +189,32 @@ Motion respects `prefers-reduced-motion` throughout.
 
 Globals: **Site Settings** (brand, contact, social, analytics) and
 **Navigation** (header and footer menus, header CTA).
+
+### Products vs case studies
+
+Two collections that look similar and are not:
+
+- **`products`** — software we own, sell, and support. Has pricing, platforms,
+  version specs, and store links.
+- **`projects`** — client work delivered for a fee. Has a client name, an
+  industry, and outcome metrics.
+
+Keep them separate. Listing client work as a product implies we sell it, and
+listing a product as a case study hides that it is a repeatable purchase.
+
+### Pricing
+
+Each product carries its own currency and up to four plans. A plan is one of:
+
+| `priceType` | Renders as | Appears in structured data |
+| --- | --- | --- |
+| `free` | "Free" | Yes, as `price: 0` |
+| `fixed` | `$79/yr`, `৳2,500/mo`, or `$1,200` for one-time | Yes |
+| `custom` | "Custom", with a call to action | No — there is no fixed price to publish |
+
+Set `highlighted` on at most one plan. Leave a plan's `ctaHref` blank to send it
+to the quote form. With no plans at all, the product page shows an enquiry call
+to action instead of a pricing section.
 
 ---
 

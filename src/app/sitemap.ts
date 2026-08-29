@@ -1,6 +1,13 @@
 import type { MetadataRoute } from 'next'
 
-import { getCareers, getPayloadClient, getPosts, getProjects, getServices } from '@/lib/payload'
+import {
+  getCareers,
+  getPayloadClient,
+  getPosts,
+  getProducts,
+  getProjects,
+  getServices,
+} from '@/lib/payload'
 import { absoluteUrl } from '@/lib/utils'
 
 export const revalidate = 3600
@@ -8,6 +15,7 @@ export const revalidate = 3600
 const STATIC_ROUTES: Array<{ path: string; priority: number; changeFrequency: 'daily' | 'weekly' | 'monthly' | 'yearly' }> = [
   { path: '/', priority: 1, changeFrequency: 'weekly' },
   { path: '/services', priority: 0.9, changeFrequency: 'monthly' },
+  { path: '/products', priority: 0.9, changeFrequency: 'weekly' },
   { path: '/work', priority: 0.9, changeFrequency: 'weekly' },
   { path: '/about', priority: 0.7, changeFrequency: 'monthly' },
   { path: '/insights', priority: 0.7, changeFrequency: 'weekly' },
@@ -27,8 +35,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
     const payload = await getPayloadClient()
 
-    const [services, projects, posts, careers, pages] = await Promise.all([
+    const [services, products, projects, posts, careers, pages] = await Promise.all([
       getServices(),
+      getProducts(),
       getProjects(),
       getPosts(),
       getCareers(),
@@ -42,6 +51,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     const collections: Array<[Array<{ slug: string; updatedAt: string }>, string, number]> = [
       [services, '/services', 0.8],
+      [products, '/products', 0.8],
       [projects, '/work', 0.8],
       [posts, '/insights', 0.6],
       [careers, '/careers', 0.5],
