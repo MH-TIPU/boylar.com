@@ -27,7 +27,7 @@ export default async function WorkPage() {
       <PageHeader
         eyebrow="Our work"
         title="Problems we were handed, and what we shipped"
-        description="Each case study covers the situation we walked into, the decisions we made, and what changed as a result — including the numbers."
+        description="Each case study covers the situation we walked into, the decisions we made, and what changed as a result."
       />
 
       {projects.length > 0 ? (

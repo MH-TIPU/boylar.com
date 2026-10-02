@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import Script from 'next/script'
 
 import { Footer } from '@/components/layout/Footer'
 import { Header, type NavLink } from '@/components/layout/Header'
@@ -11,7 +12,6 @@ import '@/styles/globals.css'
 /** Used before the CMS globals have been filled in. */
 const FALLBACK_NAV: NavLink[] = [
   { label: 'Services', href: '/services' },
-  { label: 'Products', href: '/products' },
   { label: 'Work', href: '/work' },
   { label: 'About', href: '/about' },
   { label: 'Insights', href: '/insights' },
@@ -99,6 +99,18 @@ export default async function FrontendLayout({ children }: { children: React.Rea
         </main>
 
         <Footer settings={settings} navigation={navigation} />
+
+        {settings.googleAnalyticsId ? (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${settings.googleAnalyticsId}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga" strategy="afterInteractive">
+              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','${settings.googleAnalyticsId}');`}
+            </Script>
+          </>
+        ) : null}
       </body>
     </html>
   )

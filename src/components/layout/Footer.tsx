@@ -3,6 +3,7 @@ import Link from 'next/link'
 
 import { Container } from '@/components/ui/Container'
 import type { Navigation, SiteSetting } from '@/payload-types'
+import { telHref } from '@/lib/utils'
 
 import { Logo } from './Logo'
 import { NewsletterForm } from './NewsletterForm'
@@ -53,7 +54,7 @@ export function Footer({
               {settings.phone ? (
                 <li className="flex items-center gap-3">
                   <Phone className="size-4 shrink-0 text-accent" aria-hidden />
-                  <a href={`tel:${settings.phone.replace(/\s/g, '')}`} className="hover:text-fg">
+                  <a href={telHref(settings.phone)} className="hover:text-fg">
                     {settings.phone}
                   </a>
                 </li>

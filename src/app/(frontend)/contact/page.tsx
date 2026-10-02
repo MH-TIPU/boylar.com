@@ -10,6 +10,7 @@ import { Card } from '@/components/ui/Card'
 import { Container } from '@/components/ui/Container'
 import { Section } from '@/components/ui/Section'
 import { getSiteSettings } from '@/lib/payload'
+import { telHref } from '@/lib/utils'
 
 export const revalidate = 3600
 
@@ -30,7 +31,7 @@ export default async function ContactPage() {
   const details = [
     settings.email ? { icon: Mail, label: 'Email', value: settings.email, href: `mailto:${settings.email}` } : null,
     settings.phone
-      ? { icon: Phone, label: 'Phone', value: settings.phone, href: `tel:${settings.phone.replace(/\s/g, '')}` }
+      ? { icon: Phone, label: 'Phone', value: settings.phone, href: telHref(settings.phone) }
       : null,
     addressLine ? { icon: MapPin, label: 'Office', value: addressLine, href: null } : null,
     settings.businessHours ? { icon: Clock, label: 'Hours', value: settings.businessHours, href: null } : null,

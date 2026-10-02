@@ -82,5 +82,37 @@ export const ContactSubmissions: CollectionConfig = {
       admin: { position: 'sidebar', description: 'Never shown to the sender.' },
     },
   ],
+  hooks: {
+    afterChange: [
+      async ({ doc, operation, req }) => {
+        if (operation !== 'create') return
+        const to = process.env.EMAIL_TO_ADDRESS
+        if (!to) return
+
+        // Never let a mail failure reject a form the visitor already submitted.
+        try {
+          await req.payload.sendEmail({
+            to,
+            replyTo: doc.email,
+            subject: `New ${doc.source === 'quote' ? 'quote request' : 'enquiry'} — ${doc.name}`,
+            text: [
+              `Name:     ${doc.name}`,
+              `Email:    ${doc.email}`,
+              doc.phone && `Phone:    ${doc.phone}`,
+              doc.company && `Company:  ${doc.company}`,
+              doc.budget && `Budget:   ${doc.budget}`,
+              doc.timeline && `Timeline: ${doc.timeline}`,
+              '',
+              doc.message,
+            ]
+              .filter(Boolean)
+              .join('\n'),
+          })
+        } catch (error) {
+          req.payload.logger.error({ err: error }, 'Enquiry notification email failed')
+        }
+      },
+    ],
+  },
   timestamps: true,
 }

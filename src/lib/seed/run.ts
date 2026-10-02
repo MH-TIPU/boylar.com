@@ -15,7 +15,41 @@ import config from '../../payload.config'
 import { getPayload } from 'payload'
 
 import type { Service } from '../../payload-types'
+import sharp from 'sharp'
+
 import { CATEGORIES, LEGAL_PAGES, NAVIGATION, SERVICES, SITE_SETTINGS } from './content'
+import { POSTS, PROJECTS } from './editorial'
+
+/**
+ * Brand-coloured cover art, generated rather than stock. Swap any of these for
+ * a real screenshot through the CMS — the filename is matched on re-seed, so
+ * an uploaded replacement is not overwritten.
+ */
+async function coverImage(label: string) {
+  const escaped = label.replace(/&/g, '&amp;').replace(/</g, '&lt;')
+  return sharp({ create: { width: 1600, height: 900, channels: 3, background: '#3C3489' } })
+    .composite([
+      {
+        input: Buffer.from(
+          `<svg width="1600" height="900" xmlns="http://www.w3.org/2000/svg">
+             <defs>
+               <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                 <stop offset="0%" stop-color="#3C3489"/>
+                 <stop offset="100%" stop-color="#7F77DD"/>
+               </linearGradient>
+             </defs>
+             <rect width="1600" height="900" fill="url(#g)"/>
+             <text x="120" y="480" font-family="Poppins, Helvetica, sans-serif"
+                   font-size="76" font-weight="600" fill="#ffffff">${escaped}</text>
+           </svg>`,
+        ),
+        top: 0,
+        left: 0,
+      },
+    ])
+    .png()
+    .toBuffer()
+}
 
 async function main() {
   const payload = await getPayload({ config })
@@ -105,6 +139,88 @@ async function main() {
     }
   }
   console.log(`✓ ${LEGAL_PAGES.length} legal pages`)
+
+  // ── Case studies ─────────────────────────────────────────────────────────
+  const serviceIds = new Map<string, number>()
+  const { docs: allServices } = await payload.find({ collection: 'services', limit: 100 })
+  for (const service of allServices) serviceIds.set(service.slug, service.id)
+
+  for (const { slug, serviceSlugs, techStack, ...project } of PROJECTS) {
+    const filename = `cover-${slug}.png`
+    const existingMedia = await payload.find({
+      collection: 'media',
+      where: { filename: { equals: filename } },
+      limit: 1,
+    })
+
+    const media =
+      existingMedia.docs[0] ??
+      (await payload.create({
+        collection: 'media',
+        data: { alt: `${project.client} cover` },
+        file: {
+          name: filename,
+          data: await coverImage(project.client),
+          mimetype: 'image/png',
+          size: 0,
+        },
+      }))
+
+    // ARK Power is a stub until the client confirms the brief — never publish it.
+    const isDraft = slug === 'ark-power'
+    const data = {
+      ...project,
+      slug,
+      techStack: techStack.map((name) => ({ name })),
+      coverImage: media.id,
+      services: serviceSlugs.map((s) => serviceIds.get(s)).filter((id): id is number => !!id),
+      _status: (isDraft ? 'draft' : 'published') as 'draft' | 'published',
+    }
+
+    const existing = await payload.find({
+      collection: 'projects',
+      where: { slug: { equals: slug } },
+      limit: 1,
+    })
+
+    if (existing.docs[0]) {
+      await payload.update({ collection: 'projects', id: existing.docs[0].id, data })
+    } else {
+      await payload.create({ collection: 'projects', data })
+    }
+  }
+  console.log(`✓ ${PROJECTS.length} case studies`)
+
+  // ── Articles ─────────────────────────────────────────────────────────────
+  const { docs: admins } = await payload.find({
+    collection: 'users',
+    where: { role: { equals: 'admin' } },
+    limit: 1,
+  })
+
+  for (const [i, { tags, ...post }] of POSTS.entries()) {
+    const data = {
+      ...post,
+      tags: tags.map((tag) => ({ tag })),
+      author: admins[0]?.id ?? null,
+      // Spaced a week apart so the archive does not publish all at one instant.
+      publishedAt: new Date(Date.now() - i * 7 * 86_400_000).toISOString(),
+      _status: 'published' as const,
+    }
+
+    const existing = await payload.find({
+      collection: 'posts',
+      where: { slug: { equals: post.slug } },
+      limit: 1,
+    })
+
+    if (existing.docs[0]) {
+      await payload.update({ collection: 'posts', id: existing.docs[0].id, data })
+    } else {
+      await payload.create({ collection: 'posts', data })
+    }
+  }
+  console.log(`✓ ${POSTS.length} articles`)
 
   // ── Globals ──────────────────────────────────────────────────────────────
   await payload.updateGlobal({ slug: 'site-settings', data: SITE_SETTINGS })

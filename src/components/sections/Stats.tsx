@@ -5,7 +5,7 @@ import { Section } from '@/components/ui/Section'
 const STATS = [
   { value: '6', label: 'Service disciplines under one roof' },
   { value: '2wk', label: 'Sprint cycle with a working demo' },
-  { value: '<1hr', label: 'Critical incident response target' },
+  { value: '0', label: 'Disciplines subcontracted to anyone else' },
   { value: '100%', label: 'Source code and IP handed to you' },
 ]
 

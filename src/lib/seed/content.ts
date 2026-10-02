@@ -473,9 +473,8 @@ export const SITE_SETTINGS = {
   tagline: 'Your full-service IT partner',
   description:
     'boylar is a full-service IT firm delivering software development, infrastructure, design, and managed support for businesses that depend on their technology.',
-  email: 'hello@boylar.com',
-  supportEmail: 'support@boylar.com',
-  phone: '',
+  email: 'info@boylar.com',
+  phone: '+880 1943-696858',
   legalName: 'boylar',
   businessHours: 'Sunday–Thursday, 9:00–18:00 (GMT+6)',
   address: {
@@ -484,6 +483,7 @@ export const SITE_SETTINGS = {
     country: 'Bangladesh',
   },
   social: [{ platform: 'linkedin' as const, url: 'https://www.linkedin.com/company/boylar' }],
+  googleAnalyticsId: 'G-QEH60Y1271',
 }
 
 export const NAVIGATION = {
@@ -491,7 +491,6 @@ export const NAVIGATION = {
   ctaHref: '/quote',
   header: [
     { label: 'Services', href: '/services' },
-    { label: 'Products', href: '/products' },
     { label: 'Work', href: '/work' },
     { label: 'About', href: '/about' },
     { label: 'Insights', href: '/insights' },
@@ -512,7 +511,6 @@ export const NAVIGATION = {
     {
       heading: 'Company',
       links: [
-        { label: 'Products', href: '/products' },
         { label: 'About', href: '/about' },
         { label: 'Our Work', href: '/work' },
         { label: 'Insights', href: '/insights' },
@@ -535,85 +533,234 @@ export const LEGAL_PAGES = [
   {
     title: 'Privacy Policy',
     slug: 'privacy',
-    subtitle: 'How we collect, use, and protect your information.',
+    subtitle: 'What we collect, why we collect it, and what you can ask us to do with it.',
     content: rt(
       p(
-        'This template sets out the structure of a privacy policy. Review it with a qualified legal adviser and replace this notice before publishing — it is a starting point, not legal advice.',
+        'This policy explains how boylar handles personal information collected through this website and in the course of providing services to clients. It applies to boylar.com and to the enquiry and quote forms on it.',
       ),
+
+      h(2, 'Who we are'),
+      p(
+        'boylar is an information technology firm based in Dhaka, Bangladesh, providing software development, IT infrastructure, design, digital services, e-commerce and ERP work, and managed IT support. For any question about this policy, or to make a request about your data, write to info@boylar.com.',
+      ),
+
       h(2, 'Information we collect'),
+      h(3, 'Information you give us'),
       p(
-        'When you submit an enquiry or subscribe to updates, we collect the name, email address, phone number, and company details you provide, along with the content of your message.',
+        'When you submit the contact form or the quote form, we collect the details you enter: your name, email address, and message, and where you choose to provide them, your phone number, company name, the services you are interested in, and your indicated budget and timeline.',
       ),
-      h(2, 'How we use your information'),
+      p(
+        'If you apply for a role or send a speculative application by email, we receive whatever you include in that message, including your CV.',
+      ),
+      h(3, 'Information collected automatically'),
+      p(
+        'Like most websites, our hosting infrastructure records standard technical information when you visit: IP address, browser type and version, the pages requested, and the time of the request. We use Google Analytics to understand how the site is used in aggregate — which pages are read, how visitors arrive, and which devices they use.',
+      ),
+      p(
+        'We do not use advertising trackers, we do not build behavioural profiles, and we do not sell data to anyone.',
+      ),
+
+      h(2, 'Why we use it'),
       ul([
-        'To respond to your enquiry and provide the services you request',
-        'To send updates you have explicitly subscribed to',
-        'To meet our legal, accounting, and contractual obligations',
+        'To answer your enquiry — the primary and usually only reason we hold your details',
+        'To prepare a proposal or quotation you have asked for',
+        'To deliver and support services under a contract with you',
+        'To understand, in aggregate, how the website is used so we can improve it',
+        'To meet legal, tax, and accounting obligations',
       ]),
-      h(2, 'Sharing'),
       p(
-        'We do not sell personal information. We share it only with service providers who process it on our behalf under contract, and where the law requires disclosure.',
+        'We do not send marketing email to people who have only submitted an enquiry. If we ever introduce a mailing list, joining it will be a separate and explicit action on your part.',
       ),
-      h(2, 'Retention'),
+
+      h(2, 'How long we keep it'),
+      ul([
+        'Enquiries that do not become projects: retained for up to 24 months, then deleted',
+        'Client records: retained for the duration of the engagement and for as long afterwards as tax and accounting law requires',
+        'Job applications: retained for up to 12 months unless you ask us to remove them sooner',
+        'Website analytics: retained according to the Google Analytics retention setting on our property',
+      ]),
+
+      h(2, 'Who else sees your information'),
       p(
-        'Enquiries are retained for as long as needed to serve you and to meet record-keeping obligations, after which they are deleted.',
+        'We do not sell or rent personal information. We share it only where it is necessary to run the business, and only with providers who process it on our instructions:',
       ),
-      h(2, 'Your rights'),
+      ul([
+        'Our hosting and infrastructure providers, who store the site and its database',
+        'Google, for email delivery and website analytics',
+        'Our accountants and professional advisers, where a record is relevant to their work',
+        'A public authority, where we are required by law to disclose something',
+      ]),
       p(
-        'You may request access to, correction of, or deletion of your personal information at any time by contacting us.',
+        'Some of these providers operate servers outside Bangladesh. Where that is the case, your information may be stored or processed abroad.',
       ),
+
+      h(2, 'Client data we handle during projects'),
+      p(
+        'In the course of delivering services we may be given access to systems containing personal data belonging to our clients and their customers. In that situation boylar acts on the client’s instructions, the client remains responsible for that data, and our handling of it is governed by the contract and any confidentiality agreement between us — not by this policy.',
+      ),
+      p(
+        'We limit access to the engineers working on the engagement, we use the client’s own environments where possible rather than copying data to ours, and we return or destroy working copies at the end of the work.',
+      ),
+
+      h(2, 'How we protect it'),
+      ul([
+        'Traffic to this site is encrypted in transit using TLS',
+        'Administrative access to the CMS is restricted to named staff accounts',
+        'Credentials are held in a password manager, not in shared documents or chat threads',
+        'Access is removed when a staff member leaves',
+      ]),
+      p(
+        'No system is perfectly secure. We aim to be honest about that rather than to imply a guarantee we cannot give.',
+      ),
+
+      h(2, 'Your choices'),
+      p('You may ask us to:'),
+      ul([
+        'Tell you what personal information we hold about you',
+        'Correct anything that is inaccurate',
+        'Delete your information, where we are not required to keep it',
+        'Stop using your information for a particular purpose',
+      ]),
+      p(
+        'Write to info@boylar.com and we will respond within 30 days. We may ask you to confirm your identity before acting on a request.',
+      ),
+
+      h(2, 'Cookies'),
+      p(
+        'Our use of cookies and similar technologies is described separately in our Cookie Policy.',
+      ),
+
+      h(2, 'Children'),
+      p(
+        'This site is intended for businesses and is not directed at children. We do not knowingly collect information from anyone under 18.',
+      ),
+
+      h(2, 'Changes to this policy'),
+      p(
+        'If we change how we handle personal information, we will update this page and change the date at the top. Material changes will be noted clearly rather than made quietly.',
+      ),
+
       h(2, 'Contact'),
-      p('Questions about this policy can be sent to hello@boylar.com.'),
+      p(
+        'Questions, requests, or complaints about this policy can be sent to info@boylar.com, or by post to boylar, Dhaka, Bangladesh.',
+      ),
     ),
   },
   {
     title: 'Terms of Service',
     slug: 'terms',
-    subtitle: 'The terms governing use of this website and our services.',
+    subtitle: 'The terms that govern this website and our working relationship.',
     content: rt(
       p(
-        'This template sets out the structure of a terms of service document. Review it with a qualified legal adviser and replace this notice before publishing.',
+        'These terms apply to your use of boylar.com. Where we are engaged to deliver work, a separate signed agreement or statement of work governs that engagement, and it takes precedence over anything on this page.',
       ),
-      h(2, 'Use of this website'),
+
+      h(2, 'Using this website'),
       p(
-        'This site is provided for information. You agree not to use it unlawfully or in any way that impairs its availability for others.',
+        'You may read, print, and share the content of this site for your own business purposes. You may not republish it as your own, resell it, or use it to train a competing service without our written permission.',
       ),
-      h(2, 'Engagements'),
+      p('You agree not to:'),
+      ul([
+        'Attempt to gain unauthorised access to the site, its server, or its database',
+        'Probe, scan, or test the vulnerability of the site without our prior written consent',
+        'Use automated tools in a way that degrades the service for other visitors',
+        'Submit false information, or another person’s details, through our forms',
+      ]),
+
+      h(2, 'Enquiries and quotations'),
       p(
-        'Services are governed by a separate written agreement covering scope, deliverables, timelines, and fees. Nothing on this website constitutes an offer or a contract.',
+        'Submitting an enquiry or quote request does not create a contract. Any figure we give in response is an estimate based on the information available at that point, and remains valid for 30 days unless we state otherwise.',
       ),
+      p(
+        'Work begins only once scope, price, and timeline are agreed in writing and any required deposit is received.',
+      ),
+
+      h(2, 'Content and accuracy'),
+      p(
+        'We write the material on this site carefully, including the technical articles, but it is general information rather than advice for your specific situation. Acting on it is your decision. Case studies describe work we have delivered; where a client is named, it is with their knowledge.',
+      ),
+
       h(2, 'Intellectual property'),
       p(
-        'Site content and branding remain our property. Ownership of project deliverables transfers to the client as set out in the relevant engagement agreement.',
+        'The boylar name, logo, brand assets, and the text and design of this site belong to boylar unless stated otherwise.',
       ),
-      h(2, 'Limitation of liability'),
       p(
-        'To the extent permitted by law, we are not liable for indirect or consequential loss arising from use of this website.',
+        'For client work, our standard position is that on final payment the client owns the source code, designs, and deliverables produced for them. We retain ownership of any pre-existing tools, libraries, or components we bring to the project, and grant a licence to use them as part of the delivered work. The signed agreement for each engagement sets this out precisely.',
       ),
+
+      h(2, 'Third-party links'),
+      p(
+        'This site links to client websites and to external resources. We do not control those sites and are not responsible for their content, their availability, or their handling of your data.',
+      ),
+
+      h(2, 'Availability'),
+      p(
+        'We aim to keep this website available and correct, but we do not guarantee uninterrupted access. We may change, suspend, or withdraw any part of it without notice. Service-level commitments for client systems are set out in the relevant support agreement, not here.',
+      ),
+
+      h(2, 'Liability'),
+      p(
+        'To the extent permitted by law, boylar is not liable for indirect or consequential loss — including lost profit, lost revenue, or lost data — arising from your use of this website.',
+      ),
+      p(
+        'Nothing in these terms limits liability for death or personal injury caused by negligence, for fraud, or for anything else that cannot lawfully be excluded.',
+      ),
+
+      h(2, 'Governing law'),
+      p(
+        'These terms are governed by the laws of the People’s Republic of Bangladesh, and the courts of Bangladesh have exclusive jurisdiction over any dispute arising from them.',
+      ),
+
+      h(2, 'Changes'),
+      p(
+        'We may update these terms. The version published on this page at the time you use the site is the one that applies.',
+      ),
+
       h(2, 'Contact'),
-      p('Questions about these terms can be sent to hello@boylar.com.'),
+      p('Questions about these terms can be sent to info@boylar.com.'),
     ),
   },
   {
     title: 'Cookie Policy',
     slug: 'cookies',
-    subtitle: 'What we store in your browser, and why.',
+    subtitle: 'What this site stores on your device, and how to stop it.',
     content: rt(
       p(
-        'This template sets out the structure of a cookie policy. Review it with a qualified legal adviser and replace this notice before publishing.',
+        'A cookie is a small file a website asks your browser to store. This page lists what boylar.com uses and why.',
       ),
-      h(2, 'Essential cookies'),
+
+      h(2, 'What we use'),
+      h(3, 'Strictly necessary'),
       p(
-        'Required for the site to function — for example, keeping an administrator signed in to the content management system. These cannot be disabled.',
+        'These make the site work and cannot be switched off. They handle the signed-in session for staff using the content management system at /admin, and protect forms against cross-site request forgery. They hold no information about you as a visitor.',
       ),
-      h(2, 'Analytics cookies'),
+      h(3, 'Analytics'),
       p(
-        'If analytics is enabled, we use it to understand which pages are useful. This data is aggregated and is not used to identify individuals.',
+        'We use Google Analytics 4 to understand how the site is used: which pages are read, how visitors arrive, roughly where in the world they are, and what devices they use. These cookies are set by Google and are used to distinguish one visitor from another and to measure how long a session lasts.',
       ),
-      h(2, 'Managing cookies'),
       p(
-        'Your browser can block or delete cookies. Blocking essential cookies may prevent parts of the site from working.',
+        'The reports we look at are aggregated. We do not use them to identify individual visitors, and we have not enabled advertising features or audience sharing on the property.',
       ),
+      h(3, 'What we do not use'),
+      p(
+        'No advertising cookies. No retargeting pixels. No social media tracking widgets. No third-party marketing tags.',
+      ),
+
+      h(2, 'How to control cookies'),
+      p(
+        'Every major browser lets you block or delete cookies, in Settings under Privacy. You can also install Google’s official opt-out browser add-on to prevent Google Analytics from measuring your visits to any site.',
+      ),
+      p(
+        'Blocking analytics cookies will not affect how this site works for you. Blocking strictly necessary cookies will prevent staff from signing in to the CMS, but has no effect on public pages.',
+      ),
+
+      h(2, 'Changes'),
+      p(
+        'If we add or remove a cookie, we will update this page. If we ever introduce a category that requires your consent, we will ask for it before setting anything.',
+      ),
+
+      h(2, 'Contact'),
+      p('Questions about this policy can be sent to info@boylar.com.'),
     ),
   },
 ]

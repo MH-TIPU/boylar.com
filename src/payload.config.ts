@@ -58,6 +58,9 @@ export default buildConfig({
     meta: {
       titleSuffix: ' · boylar CMS',
     },
+    components: {
+      beforeDashboard: ['@/components/admin/DashboardPanel#DashboardPanel'],
+    },
   },
   collections: [
     Services,

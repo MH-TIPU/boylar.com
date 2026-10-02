@@ -12,7 +12,7 @@ import { HeroStack } from './HeroStack'
 const PROOF = [
   { value: '6', label: 'disciplines in-house' },
   { value: '2wk', label: 'sprint cycle' },
-  { value: '<1hr', label: 'critical response' },
+  { value: '0', label: 'work subcontracted' },
   { value: '100%', label: 'code ownership' },
 ]
 

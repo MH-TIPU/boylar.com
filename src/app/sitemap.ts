@@ -15,7 +15,6 @@ export const revalidate = 3600
 const STATIC_ROUTES: Array<{ path: string; priority: number; changeFrequency: 'daily' | 'weekly' | 'monthly' | 'yearly' }> = [
   { path: '/', priority: 1, changeFrequency: 'weekly' },
   { path: '/services', priority: 0.9, changeFrequency: 'monthly' },
-  { path: '/products', priority: 0.9, changeFrequency: 'weekly' },
   { path: '/work', priority: 0.9, changeFrequency: 'weekly' },
   { path: '/about', priority: 0.7, changeFrequency: 'monthly' },
   { path: '/insights', priority: 0.7, changeFrequency: 'weekly' },
